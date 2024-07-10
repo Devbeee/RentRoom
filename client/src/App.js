@@ -1,5 +1,16 @@
+import { Routes, Route } from "react-router-dom";
+import { Home, Login } from "./pages/public";
+import { path } from "./utils/constant";
 function App() {
-  return <div className="bg-orange-600">app</div>;
+  return (
+    <div className="h-screen w-screen bg-primary">
+      <Routes>
+        <Route path={path.HOME} element={<Home />}>
+          <Route path={path.LOGIN} element={<Login />}></Route>
+        </Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
