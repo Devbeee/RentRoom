@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-    //   // define association here
-    //   Attribute.hasOne(models.Post, {
-    //     foreignKey: "attributesId",
-    //     as: "attributes",
-    //   });
+      // define association here
+      Attribute.hasOne(models.Post, {
+        foreignKey: "attributesId",
+        as: "attributes",
+      });
     }
   }
   Attribute.init(
