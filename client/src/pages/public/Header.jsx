@@ -4,10 +4,13 @@ import logo from "../../assets/image/logo-home.png";
 import icons from "../../utils/icons";
 import { path } from "../../utils/constant";
 import { Button } from "../../components";
-
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../store/actions";
 const { AiOutlinePlusCircle } = icons;
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } });
   }, []);
@@ -22,19 +25,34 @@ function Header() {
           />
         </Link>
         <div className="flex items-center gap-1">
-          <small>Phongtro123.com xin chào</small>
-          <Button
-            text="Đăng ký"
-            textColor="text-white"
-            bgColor="bg-[#3961fb]"
-            onClick={() => goLogin(true)}
-          />
-          <Button
-            text="Đăng nhập"
-            textColor="text-white"
-            bgColor="bg-[#3961fb]"
-            onClick={() => goLogin(false)}
-          />
+          {!isLoggedIn && (
+            <div className="flex items-center gap-1">
+              <small>Phongtro123.com xin chào</small>
+              <Button
+                text="Đăng ký"
+                textColor="text-white"
+                bgColor="bg-[#3961fb]"
+                onClick={() => goLogin(true)}
+              />
+              <Button
+                text="Đăng nhập"
+                textColor="text-white"
+                bgColor="bg-[#3961fb]"
+                onClick={() => goLogin(false)}
+              />
+            </div>
+          )}
+          {isLoggedIn && (
+            <div className="flex items-center gap-1">
+              <small>Ten</small>
+              <Button
+                text="Đăng xuất"
+                textColor="text-white"
+                bgColor="bg-red-700"
+                onClick={() => dispatch(actions.logout)}
+              />
+            </div>
+          )}
           <Button
             text="Đăng tin mới"
             textColor="text-white"
