@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import Navigation from "./Navigation";
+import { Navigation, Search } from "./index";
 function Home() {
   return (
     <div className="w-full flex flex-col items-center h-full">
       <Header />
       <Navigation />
-      <div className="w-1100 flex flex-col items-center">
+      <Search/>
+      <div className="w-3/5 flex flex-col items-start">
         <Outlet />
       </div>
     </div>

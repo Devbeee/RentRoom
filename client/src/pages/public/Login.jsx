@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { InputForm, Button } from "../../components";
 import * as actions from "../../store/actions";
+import Swal from "sweetalert2";
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
   const [isRegister, setIsRegister] = useState(location.state?.flag);
   const [invalidFields, setInvalidFields] = useState([]);
   const [payload, setPayload] = useState({
@@ -23,6 +24,14 @@ function Login() {
   useEffect(() => {
     isLoggedIn && navigate("/");
   }, [isLoggedIn]);
+  useEffect(() => {
+    msg &&
+      Swal.fire({
+        title: "Oops",
+        text: msg,
+        icon: "error",
+      });
+  }, [msg, update]);
   const handleSubmit = async () => {
     let finalPayload = isRegister
       ? payload
@@ -35,7 +44,7 @@ function Login() {
     if (invalids === 0) {
       isRegister
         ? dispatch(actions.register(payload))
-        : dispatch(actions.login);
+        : dispatch(actions.login(payload));
     }
   };
 

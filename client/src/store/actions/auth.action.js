@@ -44,7 +44,7 @@ export const login = (payload) => async (dispatch) => {
     });
   }
 };
-export const logout = () => (dispatch) => {
+export const logout = (dispatch) => {
   dispatch({
     type: actionType.LOGOUT,
   });
