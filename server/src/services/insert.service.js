@@ -5,9 +5,8 @@ import chothuematbang from "../../data/chothuematbang.json";
 import chothuecanho from "../../data/chothuecanho.json";
 import nhachothue from "../../data/nhachothue.json";
 import chothuephongtro from "../../data/chothuephongtro.json";
-import generateCode from "../ultis/generateCode";
-import { dataPrice, dataArea } from "../ultis/data";
-import { getNumberFromString, getNumberFromStringV2 } from "../ultis/common";
+import generateCode from "../utils/generateCode";
+
 require("dotenv").config();
 const dataBody = [
   {
