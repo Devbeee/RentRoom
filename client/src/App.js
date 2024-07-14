@@ -6,18 +6,16 @@ import {
   RentalHouse,
   RentalSpace,
   RentalRoom,
-  HomePage
+  HomePage,
+  DetailPost,
 } from "./pages/public";
 import { path } from "./utils/constant";
 function App() {
   return (
-    <div className="h-screen w-screen bg-primary">
+    <div className=" bg-primary">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
-        <Route
-            path={'*'}
-            element={<HomePage />}
-          ></Route>
+          <Route path={"*"} element={<HomePage />}></Route>
           <Route path={path.LOGIN} element={<Login />}></Route>
           <Route
             path={path.CHO_THUE_CAN_HO}
@@ -32,7 +30,9 @@ function App() {
             element={<RentalRoom />}
           ></Route>
           <Route path={path.NHA_CHO_THUE} element={<RentalHouse />}></Route>
-        </Route>
+          <Route path={path.DETAL_POST__TITLE__POSTID} element={<DetailPost />}></Route>
+          <Route path={'chi-tiet/*'} element={<DetailPost />} />
+       </Route>
       </Routes>
     </div>
   );

@@ -12,7 +12,7 @@ const Navigation = ({ isAdmin }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await apiGetCategories();
-      console.log(response)
+     
       if (response?.data.err === 0) {
         setCategories(response?.data?.response);
       }

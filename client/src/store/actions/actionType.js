@@ -5,6 +5,9 @@ const actionType = {
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_FAIL: "REGISTER_FAIL",
 
+  GET_POSTS: "GET_POSTS",
+  GET_POSTS_LIMIT: "GET_POSTS_LIMIT",
+
   LOGOUT: "LOGOUT",
 };
 export default actionType;
