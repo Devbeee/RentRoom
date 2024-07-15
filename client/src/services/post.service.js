@@ -8,9 +8,9 @@ export const apiGetPosts = async () => {
     return error;
   }
 };
-export const apiGetPostsLimit = async (page) => {
+export const apiGetPostsLimit = async (query) => {
   try {
-    const response = await axiosConfig.get(`/post/limit?page=${page}`);
+    const response = await axiosConfig.get(`/post/limit`, { params: query });
     return response;
   } catch (error) {
     return error;

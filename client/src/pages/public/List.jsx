@@ -1,18 +1,30 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { Button, Item } from "../../components";
-import { getPosts, getPostsLimit } from "../../store/actions/post.action";
+import { getPosts, getPostsLimit } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
-const List = ({ page }) => {
+const List = ({ categoryCode }) => {
   const dispatch = useDispatch();
-
+  const [searchParams] = useSearchParams();
   const { posts } = useSelector((state) => state.post);
+
   useEffect(() => {
-    let offset = page ? +page - 1 : 0;
-    dispatch(getPostsLimit(offset))
-    
-  }, [page]);
+    let params = [];
+    for (let entry of searchParams.entries()) {
+      params.push(entry);
+    }
+    let searchParamsObject = {};
+    params?.forEach((i) => {
+      if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
+        searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+      } else {
+        searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+      }
+    });
+    if (categoryCode) searchParamsObject.categoryCode = categoryCode;
+    dispatch(getPostsLimit(searchParamsObject));
+  }, [searchParams, categoryCode]);
   return (
     <div className="w-full p-2 bg-white shadow-md rounded-md px-6">
       <div className="flex items-center justify-between my-3">

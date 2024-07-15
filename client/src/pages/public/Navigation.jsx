@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import  formatVietnameseToString from "../../utils/formatVietnameseToString";
-import { apiGetCategories } from "../../services/category.service";
-
-const notActive =
-  "hover:bg-third px-4 h-full flex items-center bg-secondary";
+import formatVietnameseToString from "../../utils/formatVietnameseToString";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../store/actions";
+const notActive = "hover:bg-third px-4 h-full flex items-center bg-secondary";
 const active = "hover:bg-third px-4 h-full flex items-center  bg-third";
 
 const Navigation = ({ isAdmin }) => {
-  const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.app);
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetCategories();
-     
-      if (response?.data.err === 0) {
-        setCategories(response?.data?.response);
-      }
-    };
-    fetchCategories();
-  },[]);
+    dispatch(actions.GetCategories());
+  }, []);
   return (
     <div
       className={`w-full flex ${
