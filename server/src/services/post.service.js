@@ -1,3 +1,5 @@
+import { where } from "sequelize";
+
 const db = require("../models");
 
 export const getPostsService = async () => {
@@ -38,12 +40,21 @@ export const getPostsService = async () => {
   }
 };
 
-export const getPostsLimitService = async (offset) => {
+export const getPostsLimitService = async (
+  page,
+  query,
+  { priceNumber, areaNumber }
+) => {
   try {
+    let offset = !page || +page <= 1 ? 0 : +page - 1;
+    const queries = { ...query };
+    if (priceNumber) queries.priceNumber = { [Op.between]: priceNumber };
+    if (areaNumber) queries.areaNumber = { [Op.between]: areaNumber };
     const response = await db.Post.findAndCountAll({
+      where: queries,
       raw: true,
       nest: true,
-      offset: +offset *+process.env.LIMIT || 0,
+      offset: offset * +process.env.LIMIT,
       limit: +process.env.LIMIT,
       include: [
         { model: db.Image, as: "images", attributes: ["image"] },
@@ -52,27 +63,15 @@ export const getPostsLimitService = async (offset) => {
           as: "attributes",
           attributes: ["price", "acreage", "published", "hashtag"],
         },
-        {
-          model: db.User,
-          as: "user",
-          attributes: ["name", "zalo", "phone", "avatar"],
-        },
+        { model: db.User, as: "user", attributes: ["name", "zalo", "phone"] },
       ],
       attributes: ["id", "title", "star", "address", "description"],
     });
-    if (response) {
-      return {
-        err: 0,
-        msg: "Get post OK",
-        response,
-      };
-    } else {
-      return {
-        err: 1,
-        msg: "Get post fail",
-        response: null,
-      };
-    }
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "Getting posts is failed.",
+      response,
+    };
   } catch (error) {
     return error;
   }
