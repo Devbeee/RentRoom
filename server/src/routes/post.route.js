@@ -3,5 +3,6 @@ const router = express.Router();
 const postController = require("../controllers/post.controller");
 router.get("/all",postController.getPosts);
 router.get("/limit",postController.getPostsLimit);
+router.get("/new-posts",postController.getNewPosts);
 
 module.exports = router;

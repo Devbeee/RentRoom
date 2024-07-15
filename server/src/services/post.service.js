@@ -76,3 +76,31 @@ export const getPostsLimitService = async (
     return error;
   }
 };
+
+export const getNewPostsService = async () => {
+  try {
+    const response = await db.Post.findAll({
+      raw: true,
+      nest: true,
+      offset: 0,
+      order: [],
+      limit: +process.env.LIMIT,
+      include: [
+        { model: db.Image, as: "images", attributes: ["image"] },
+        {
+          model: db.Attribute,
+          as: "attributes",
+          attributes: ["price", "acreage", "published", "hashtag"],
+        },
+      ],
+      attributes: ["id", "title", "star", "createdAt"],
+    });
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "Getting posts is failed.",
+      response,
+    };
+  } catch (error) {
+    return error;
+  }
+};

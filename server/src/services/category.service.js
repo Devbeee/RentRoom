@@ -19,5 +19,7 @@ export const getCategoriesService = async () => {
         response: null,
       };
     }
-  } catch (error) {}
+  } catch (error) {
+    return error
+  }
 };
