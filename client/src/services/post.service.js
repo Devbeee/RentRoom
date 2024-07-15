@@ -16,3 +16,12 @@ export const apiGetPostsLimit = async (query) => {
     return error;
   }
 };
+
+export const apiGetNewPosts = async (query) => {
+  try {
+    const response = await axiosConfig.get(`/post/new-posts`, { params: query });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

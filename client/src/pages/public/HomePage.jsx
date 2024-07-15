@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import * as actions from "../../store/actions";
+import { useSelector } from "react-redux";
 import { text } from "../../utils/constant";
-import { Province, ItemSidebar } from "../../components";
+import { Province, ItemSidebar, RelatedPost } from "../../components";
 import { List, Pagination } from "./index";
 const HomePage = () => {
-  const [params] = useSearchParams();
-  const dispatch = useDispatch();
   const { categories, prices, areas } = useSelector((state) => state.app);
-  useEffect(() => {   
-    dispatch(actions.GetPrices());
-    dispatch(actions.GetAreas());
-  }, []);
+ 
   return (
     <div className="w-full flex flex-col gap-3">
       <div>
@@ -40,7 +32,8 @@ const HomePage = () => {
             content={areas}
             title="Xem theo diện tích"
           />
-          {/* <RelatedPost /> */}
+
+          <RelatedPost />
         </div>
       </div>
     </div>

@@ -37,22 +37,25 @@ const List = ({ categoryCode }) => {
         <Button bgColor="bg-gray-200" text="Mới nhất" />
       </div>
       <div className="items">
-        {posts?.length > 0 &&
-          posts.map((item) => {
-            return (
-              <Item
-                key={item?.id}
-                address={item?.address}
-                attributes={item?.attributes}
-                description={JSON.parse(item?.description)}
-                images={JSON.parse(item?.images?.image)}
-                star={+item?.star}
-                title={item?.title}
-                user={item?.user}
-                id={item?.id}
-              />
-            );
-          })}
+        {posts?.length > 0 ? (
+          posts.map((item) => (
+            <Item
+              key={item?.id}
+              address={item?.address}
+              attributes={item?.attributes}
+              description={JSON.parse(item?.description)}
+              images={JSON.parse(item?.images?.image)}
+              star={+item?.star}
+              title={item?.title}
+              user={item?.user}
+              id={item?.id}
+            />
+          ))
+        ) : (
+          <div className="text-center text-lg text-black font-semibold">
+            Không có kết quả phù hợp
+          </div>
+        )}
       </div>
     </div>
   );
