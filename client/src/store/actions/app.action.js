@@ -1,5 +1,10 @@
 import actionType from "./actionType";
-import { apiGetCategories, apiGetPrices, apiGetAreas } from "../../services";
+import {
+  apiGetCategories,
+  apiGetPrices,
+  apiGetAreas,
+  apiGetProvinces,
+} from "../../services";
 
 export const GetCategories = () => async (dispatch) => {
   try {
@@ -73,6 +78,30 @@ export const GetAreas = () => async (dispatch) => {
     dispatch({
       type: actionType.GET_AREAS,
       areas: null,
+      msg: "",
+    });
+  }
+};
+export const GetProvinces = () => async (dispatch) => {
+  try {
+    const response = await apiGetProvinces();
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionType.GET_PROVINCES,
+        provinces: response?.data.response,
+        msg: response?.data.msg,
+      });
+    } else {
+      dispatch({
+        type: actionType.GET_PROVINCES,
+        provinces: null,
+        msg: response?.data.msg,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionType.GET_PROVINCES,
+      provinces: null,
       msg: "",
     });
   }

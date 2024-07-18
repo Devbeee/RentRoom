@@ -11,6 +11,7 @@ function Home() {
   useEffect(() => {
     dispatch(actions.GetPrices());
     dispatch(actions.GetAreas());
+    dispatch(actions.GetProvinces());
   }, []);
   return (
     <div className="w-full flex flex-col items-center h-full">

@@ -8,7 +8,7 @@ export const apiGetPrices = async () => {
   }
 };
 
-export const apiGetAreas= async () => {
+export const apiGetAreas = async () => {
   try {
     const response = await axiosConfig.get("/area/all");
     return response;
@@ -17,3 +17,11 @@ export const apiGetAreas= async () => {
   }
 };
 
+export const apiGetProvinces = async () => {
+  try {
+    const response = await axiosConfig.get("/province/all");
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
