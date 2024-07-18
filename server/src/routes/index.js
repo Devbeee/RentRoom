@@ -4,6 +4,7 @@ const categoryRouter = require("./category.route");
 const postRouter = require("./post.route");
 const priceRouter = require("./price.route");
 const areaRouter = require("./area.route");
+const provinceRouter = require("./province.route");
 
 function route(app) {
   app.use("/api/v1/auth", authRouter);
@@ -12,7 +13,7 @@ function route(app) {
   app.use("/api/v1/post", postRouter);
   app.use("/api/v1/price", priceRouter);
   app.use("/api/v1/area", areaRouter);
-
+  app.use("/api/v1/province", provinceRouter);
   app.use("/", (req, res) => {
     console.log("connect server");
   });
