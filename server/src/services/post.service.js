@@ -1,4 +1,4 @@
-import { where } from "sequelize";
+const { Op } = require("sequelize");
 
 const db = require("../models");
 
@@ -50,6 +50,7 @@ export const getPostsLimitService = async (
     const queries = { ...query };
     if (priceNumber) queries.priceNumber = { [Op.between]: priceNumber };
     if (areaNumber) queries.areaNumber = { [Op.between]: areaNumber };
+
     const response = await db.Post.findAndCountAll({
       where: queries,
       raw: true,
