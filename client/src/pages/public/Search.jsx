@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { SearchItem, Modal } from "../../components";
 import icons from "../../utils/icons";
 import { path } from "../../utils/constant";
@@ -14,6 +14,7 @@ const {
 } = icons;
 const Search = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isShowModal, setIsShowModal] = useState(false);
   const [content, setContent] = useState([]);
   const [name, setName] = useState([]);
@@ -23,23 +24,26 @@ const Search = () => {
   const { categories, provinces, areas, prices } = useSelector(
     (state) => state.app
   );
+  useEffect(() => {
+    if (!location?.pathname.includes(path.SEARCH)) {
+      setArrMinMax({});
+      setQueries({});
+    }
+  }, [location]);
   const handleShowModal = (content, name, defaultText) => {
     setContent(content);
     setName(name);
     setDefaultText(defaultText);
     setIsShowModal(true);
   };
-  const handleSubmit = useCallback(
-    (query, arrMaxMin) => {
-      setQueries((prev) => ({
-        ...prev,
-        ...query,
-      }));
-      setIsShowModal(false);
-      arrMaxMin && setArrMinMax((prev) => ({ ...prev, ...arrMaxMin }));
-    },
-    []
-  );
+  const handleSubmit = useCallback((query, arrMaxMin) => {
+    setQueries((prev) => ({
+      ...prev,
+      ...query,
+    }));
+    setIsShowModal(false);
+    arrMaxMin && setArrMinMax((prev) => ({ ...prev, ...arrMaxMin }));
+  }, []);
   const handleSearch = () => {
     const queryCodes = Object.entries(queries)
       .filter((item) => item[0].includes("Number") || item[0].includes("Code"))
@@ -48,11 +52,25 @@ const Search = () => {
     queryCodes.forEach((item) => {
       queryCodesObj[item[0]] = item[1];
     });
-
-    navigate({
-      pathname: path.SEARCH,
-      search: createSearchParams(queryCodesObj).toString(),
+    const queryText = Object.entries(queries).filter(
+      (item) => !item[0].includes("Code") || !item[0].includes("Number")
+    );
+    let queryTextObj = {};
+    queryText.forEach((item) => {
+      queryTextObj[item[0]] = item[1];
     });
+    let titleSearch = `${
+      queryTextObj?.category ? queryTextObj?.category : "Cho thuê tất cả"
+    } ${queryTextObj?.province ? `tỉnh ${queryTextObj?.province}` : ""} ${
+      queryTextObj?.price ? `giá ${queryTextObj?.price}` : ""
+    } ${queryTextObj?.area ? `diện tích ${queryTextObj?.area}` : ""} `;
+    navigate(
+      {
+        pathname: path.SEARCH,
+        search: createSearchParams(queryCodesObj).toString(),
+      },
+      { state: { titleSearch } }
+    );
   };
   return (
     <>

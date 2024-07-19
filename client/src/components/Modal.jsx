@@ -91,15 +91,15 @@ const Modal = ({
     let min = percent1 <= percent2 ? percent1 : percent2;
     let max = percent1 <= percent2 ? percent2 : percent1;
     let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
-    const gaps =
-      name === "price"
-        ? getCodes(arrMinMax, content)
-        : name === "area"
-        ? getCodesArea(arrMinMax, content)
-        : [];
+    // const gaps =
+    //   name === "price"
+    //     ? getCodes(arrMinMax, content)
+    //     : name === "area"
+    //     ? getCodesArea(arrMinMax, content)
+    //     : [];
     handleSubmit(
       {
-        [`${name}Code`]: gaps?.map((item) => item.code),
+        [`${name}Number`]: arrMinMax,
         [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
           name === "price" ? "triệu" : "m2"
         }`,
@@ -278,13 +278,15 @@ const Modal = ({
             </div>
           )}
         </div>
-        <button
-          onClick={handleBeforeSubmit}
-          type="button"
-          className="w-full bg-[#FFA500] py-2 font-medium rounded-bl-md rounded-br-md uppercase absolute bottom-0"
-        >
-          Áp dụng
-        </button>
+        {name !== "province" && (
+          <button
+            onClick={handleBeforeSubmit}
+            type="button"
+            className="w-full bg-[#FFA500] py-2 font-medium rounded-bl-md rounded-br-md uppercase absolute bottom-0"
+          >
+            Áp dụng
+          </button>
+        )}
       </div>
     </div>
   );

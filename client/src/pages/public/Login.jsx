@@ -97,7 +97,8 @@ function Login() {
     return invalids;
   };
   return (
-    <div className="bg-white w-[600px] mw-600 p-[30px] pb-[100px] rounded-md shadow-sm mt-3">
+   <div className="flex w-full items-center justify-center mb-3">
+     <div className="bg-white w-[600px] mw-600 p-[30px] pb-[100px] rounded-md shadow-sm mt-3">
       <h3 className="font-semibold text-2xl mb-3">
         {isRegister ? "Đăng ký tài khoản" : "Đăng nhập"}
       </h3>
@@ -170,6 +171,7 @@ function Login() {
         )}
       </div>
     </div>
+   </div>
   );
 }
 
