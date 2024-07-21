@@ -15,12 +15,18 @@ export const GetCurrentUser = () => async (dispatch) => {
         msg: response.data.msg,
         userData: null,
       });
+      dispatch({
+        type: actionType.LOGOUT,
+      });
     }
   } catch (error) {
     dispatch({
       type: actionType.GET_CURRENT_USER,
       msg: error,
       userData: null,
+    });
+    dispatch({
+      type: actionType.LOGOUT,
     });
   }
 };

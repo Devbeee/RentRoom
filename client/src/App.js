@@ -26,6 +26,11 @@ function App() {
       clearTimeout(timer);
     };
   }, [isLoggedIn]);
+  useEffect(() => {
+    dispatch(actions.GetPrices());
+    dispatch(actions.GetAreas());
+    dispatch(actions.GetProvinces());
+  }, []);
   return (
     <div className=" bg-primary">
       <Routes>
