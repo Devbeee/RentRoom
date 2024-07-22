@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 const targets = [
   { code: "Nam", value: "Nam" },
   { code: "Nữ", value: "Nữ" },
+  { code: "Tất cả", value: "Tất cả" },
 ];
 
-const Overview = ({ payload, setPayload }) => {
+const Overview = ({ payload, setPayload, invalidFields }) => {
   const { categories } = useSelector((state) => state.app);
   const { userData } = useSelector((state) => state.user);
+  const { dataEdit } = useSelector((state) => state.post);
+
   return (
     <div>
       <h2 className="font-semibold text-xl py-4">Thông tin mô tả</h2>
@@ -21,6 +24,7 @@ const Overview = ({ payload, setPayload }) => {
             name="categoryCode"
             options={categories}
             label="Loại chuyên mục"
+            invalidFields={invalidFields}
           />
         </div>
         <InputFormV2
@@ -28,6 +32,7 @@ const Overview = ({ payload, setPayload }) => {
           setValue={setPayload}
           name="title"
           label="Tiêu đề"
+          invalidFields={invalidFields}
         />
         <div className="flex flex-col gap-2">
           <label htmlFor="desc">Nội dung mô tả</label>
@@ -41,6 +46,12 @@ const Overview = ({ payload, setPayload }) => {
               setPayload((prev) => ({ ...prev, description: e.target.value }))
             }
           ></textarea>
+          {invalidFields?.length > 0 &&
+            invalidFields.some((item) => item.name === "description") && (
+              <small className="text-red-500 italic">
+                {invalidFields.find((item) => item.name === "description")?.msg}
+              </small>
+            )}
         </div>
         <div className="w-1/2 flex flex-col gap-4">
           <InputReadOnly
@@ -55,6 +66,7 @@ const Overview = ({ payload, setPayload }) => {
             label="Giá cho thuê"
             unit="đồng"
             name="priceNumber"
+            invalidFields={invalidFields}
           />
           <InputFormV2
             value={payload?.areaNumber}
@@ -62,11 +74,13 @@ const Overview = ({ payload, setPayload }) => {
             name="areaNumber"
             label="Diện tích"
             unit="m2"
+            invalidFields={invalidFields}
           />
           <Select
-            value={payload?.target}
+            value={dataEdit?.overviews?.target || payload?.target}
             setValue={setPayload}
             name="target"
+            invalidFields={invalidFields}
             options={targets}
             label="Đối tượng cho thuê"
           />

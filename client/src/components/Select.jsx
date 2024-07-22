@@ -1,5 +1,22 @@
 import React, { memo } from "react";
-const Select = ({ label, options, value, setValue, type, reset, name }) => {
+const Select = ({
+  label,
+  options,
+  value,
+  setValue,
+  type,
+  reset,
+  name,
+  invalidFields,
+}) => {
+  const handleError = () => {
+    let nameInvalid = invalidFields?.find((item) => item.name === name);
+    let addressInvalid = invalidFields?.find((item) => item.name === "address");
+    return (
+      `${nameInvalid ? nameInvalid?.msg : ""}` ||
+      `${addressInvalid ? addressInvalid?.msg : ""}`
+    );
+  };
   return (
     <div className="flex flex-col gap-2 flex-1">
       <label className="font-medium" htmlFor="select-address">
@@ -43,6 +60,9 @@ const Select = ({ label, options, value, setValue, type, reset, name }) => {
           );
         })}
       </select>
+      {invalidFields?.length > 0 && (
+        <small className="text-red-500">{handleError()}</small>
+      )}
     </div>
   );
 };

@@ -7,7 +7,11 @@ const actionTypes = {
   LOGIN_FAIL: "LOGIN_FAIL",
 
   GET_POSTS: "GET_POSTS",
+  EDIT_POST: "EDIT_POST",
+  RESET_POST: "RESET_POST",
   GET_POSTS_LIMIT: "GET_POSTS_LIMIT",
+  GET_POSTS_LIMIT_ADMIN: "GET_POSTS_LIMIT_ADMIN",
+
   GET_NEW_POST: "GET_NEW_POST",
 
   GET_CATEGORIES: "GET_CATEGORIES",
@@ -17,6 +21,7 @@ const actionTypes = {
 
   // USER
   GET_CURRENT_USER: "GET_CURRENT_USER",
+  
 };
 
 export default actionTypes;

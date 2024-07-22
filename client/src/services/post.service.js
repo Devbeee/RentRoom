@@ -41,7 +41,35 @@ export const apiUploadImages = async (images) => {
 
 export const apiCreatePost = async (payload) => {
   try {
-    const response = await axiosConfig.post("/post/create",payload);
+    const response = await axiosConfig.post("/post/create", payload);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+export const apiGetPostsLimitAdmin = async (query) => {
+  try {
+    const response = await axiosConfig.get(`/post/limit-admin`, {
+      params: query,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+export const apiUpdatePost = async (payload) => {
+  try {
+    const response = await axiosConfig.put("/post/update", payload);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+export const apiDeletePost = async (payload) => {
+  try {
+    const response = await axiosConfig.delete("/post/delete", {
+      params: payload,
+    });
     return response;
   } catch (error) {
     return error;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputFormV2 = ({ label, unit, value, setValue, name, small }) => {
+const InputFormV2 = ({ label, unit, value, setValue, name, small,invalidFields }) => {
   return (
     <div>
       <label htmlFor="title">{label}</label>
@@ -23,6 +23,12 @@ const InputFormV2 = ({ label, unit, value, setValue, name, small }) => {
         )}
       </div>
       {small && <small className="opacity-70">{small}</small>}
+      {invalidFields?.length > 0 &&
+        invalidFields.some((item) => item.name === name) && (
+          <small className="text-red-500 italic block">
+            {invalidFields.find((item) => item.name === name)?.msg}
+          </small>
+        )}
     </div>
   );
 };

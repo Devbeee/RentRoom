@@ -17,7 +17,7 @@ function InputForm({ label, name, type, value, setValue, invalidFields }) {
           }))
         }
       />
-      {invalidFields.length > 0 &&
+      {invalidFields?.length > 0 &&
         invalidFields.some((item) => item.name === name) && (
           <small className="text-red-500 italic">{invalidFields.find((item) => item.name === name)?.msg}</small>
         )}

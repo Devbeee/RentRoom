@@ -100,9 +100,14 @@ const Modal = ({
     handleSubmit(
       {
         [`${name}Number`]: arrMinMax,
-        [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
-          name === "price" ? "triệu" : "m2"
-        }`,
+        [name]:
+          convert100toTarget(min) === convert100toTarget(max)
+            ? `Trên ${convert100toTarget(max)} ${
+                name === "price" ? "triệu" : "m2"
+              }`
+            : `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
+                name === "price" ? "triệu" : "m2"
+              }`,
       },
       {
         [`${name}Arr`]: [min, max],

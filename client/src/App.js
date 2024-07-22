@@ -9,7 +9,7 @@ import {
   DetailPost,
   SearchResult,
 } from "./pages/public";
-import { System, CreatePost } from "./pages/system";
+import { System, CreatePost, ManagePost } from "./pages/system";
 import * as actions from "./store/actions";
 
 import { path } from "./utils/constant";
@@ -32,7 +32,7 @@ function App() {
     dispatch(actions.GetProvinces());
   }, []);
   return (
-    <div className=" bg-primary">
+    <div className=" bg-primary overflow-hidden">
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path={"*"} element={<HomePage />}></Route>
@@ -50,6 +50,7 @@ function App() {
         </Route>
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />}></Route>
+          <Route path={path.MANAGE_POST} element={<ManagePost />}></Route>
         </Route>
       </Routes>
     </div>

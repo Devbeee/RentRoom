@@ -5,6 +5,8 @@ const initState = {
   msg: "",
   count: 0,
   newPosts: [],
+  postsOfAdmin: [],
+  dataEdit: {},
 };
 
 const postReducer = (state = initState, action) => {
@@ -22,6 +24,22 @@ const postReducer = (state = initState, action) => {
         ...state,
         newPosts: action.newPosts || [],
         msg: action.msg || "",
+      };
+    case actionType.GET_POSTS_LIMIT_ADMIN:
+      return {
+        ...state,
+        postsOfAdmin: action.postsOfAdmin || [],
+        msg: action.msg || "",
+      };
+    case actionType.EDIT_POST:
+      return {
+        ...state,
+        dataEdit: action.dataEdit || {},
+      };
+    case actionType.RESET_POST:
+      return {
+        ...state,
+        dataEdit: {},
       };
     default:
       return state;
