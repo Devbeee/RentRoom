@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       avatar: {
-        type: Sequelize.BLOB("long"),
+        type: Sequelize.TEXT("long"),
       },
       createdAt: {
         allowNull: false,

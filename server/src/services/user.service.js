@@ -12,20 +12,46 @@ export const getCurrentUserService = async (id) => {
     if (response) {
       return {
         err: 0,
-        msg: "Get price ok",
+        msg: "Get current user ok",
         response,
       };
     } else {
       return {
         err: 1,
-        msg: "Get price fail",
+        msg: "Get current user fail",
         response: null,
       };
     }
   } catch (error) {
     return {
       err: -1,
-      msg: "Get price fail",
+      msg: "Get current user fail",
+      error,
+    };
+  }
+};
+export const updateProfileService = async (payload, id) => {
+  try {
+    const response = await db.User.update(payload, {
+      where: { id },
+    });
+    if (response[0] > 0) {
+      return {
+        err: 0,
+        msg: "Update profile ok",
+        response,
+      };
+    } else {
+      return {
+        err: 1,
+        msg: "Update profile fail",
+        response: null,
+      };
+    }
+  } catch (error) {
+    return {
+      err: -1,
+      msg: "Update profile fail",
       error,
     };
   }
