@@ -8,8 +8,9 @@ import {
   HomePage,
   DetailPost,
   SearchResult,
+  Contact
 } from "./pages/public";
-import { System, CreatePost, ManagePost } from "./pages/system";
+import { System, CreatePost, ManagePost, EditProfile } from "./pages/system";
 import * as actions from "./store/actions";
 
 import { path } from "./utils/constant";
@@ -42,6 +43,7 @@ function App() {
           <Route path={path.CHO_THUE_PHONG_TRO} element={<Rental />}></Route>
           <Route path={path.NHA_CHO_THUE} element={<Rental />}></Route>
           <Route path={path.SEARCH} element={<SearchResult />}></Route>
+          <Route path={path.CONTACT} element={<Contact />}></Route>
           <Route
             path={path.DETAL_POST__TITLE__POSTID}
             element={<DetailPost />}
@@ -51,6 +53,7 @@ function App() {
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />}></Route>
           <Route path={path.MANAGE_POST} element={<ManagePost />}></Route>
+          <Route path={path.EDIT_PROFILE} element={<EditProfile />}></Route>
         </Route>
       </Routes>
     </div>

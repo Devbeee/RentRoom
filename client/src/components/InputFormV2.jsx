@@ -1,10 +1,19 @@
 import React from "react";
 
-const InputFormV2 = ({ label, unit, value, setValue, name, small,invalidFields }) => {
+const InputFormV2 = ({
+  label,
+  unit,
+  value,
+  setValue,
+  name,
+  small,
+  invalidFields,
+  direction,
+}) => {
   return (
     <div>
-      <label htmlFor="title">{label}</label>
-      <div className="flex items-center">
+      <label className="" htmlFor="title">{label}</label>
+      <div className="flex items-center mt-2">
         <input
           type="text"
           id=" title"

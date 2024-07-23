@@ -127,7 +127,7 @@ const CreatePost = ({ isEdit, setIsEdit }) => {
     }
   };
   return (
-    <div className="px-6">
+    <div className="px-6 pb-20">
       <h1 className="text-3xl font-medium py-4 border-b border-gray-200">
         {isEdit ? "Chỉnh sửa tin đăng" : "Đăng tin mới"}
       </h1>

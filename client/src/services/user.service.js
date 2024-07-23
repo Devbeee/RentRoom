@@ -7,3 +7,11 @@ export const apiGetCurrentUser = async () => {
     return error;
   }
 };
+export const apiUpdateUser = async (payload) => {
+  try {
+    const response = await axiosConfig.put("/user/update", payload);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
