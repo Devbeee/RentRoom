@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import icons from "../utils/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import formatVietnameseToString from "../utils/formatVietnameseToString";
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons;
@@ -16,17 +16,19 @@ const Item = ({
   id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
-
+  const location = useLocation();
   const handleStar = (star) => {
     let stars = [];
     for (let i = 1; i <= +star; i++)
-      stars.push(<GrStar className="star-item" size={18} color="yellow" />);
+      stars.push(<GrStar className="star-item" size={18} color="#ffd250" />);
     return stars;
   };
   return (
     <div className="w-full flex border-t border-orange-600 py-4">
       <Link
-        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        to={`/chi-tiet/${formatVietnameseToString(
+          title.replaceAll("/", "")
+        )}/${id}`}
         className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer"
       >
         {images.length > 0 &&
@@ -60,7 +62,12 @@ const Item = ({
               handleStar(+star).map((star, number) => {
                 return <span key={number}>{star}</span>;
               })}
-            <Link to={`chi-tiet/${formatVietnameseToString(title)}/${id}`} className="hover:text-[#1266dd]">{title}</Link>
+            <Link
+              to={`/chi-tiet/${formatVietnameseToString(title)}/${id}`}
+              className="hover:text-[#1266dd]"
+            >
+              {title}
+            </Link>
           </div>
           <div className="w-[10%] flex justify-end">
             <BsBookmarkStarFill size={24} color="orange" />
@@ -90,18 +97,20 @@ const Item = ({
             <p>{user?.name}</p>
           </div>
           <div className="flex items-center gap-1">
-            <button
-              type="button"
+            <Link
+              to={`tel:${user?.phone}`}
               className="bg-blue-700 text-white p-1 rounded-md"
             >
               {`Gọi ${user?.phone}`}
-            </button>
-            <button
-              type="button"
-              className="text-blue-700 px-1 rounded-md border border-blue-700"
+            </Link>
+            <a
+              href={`https://zalo.me/${user?.phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 p-1 rounded-md border border-blue-700"
             >
               Nhắn zalo
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,5 +1,9 @@
 import actionType from "./actionType";
-import { apiRegister, apiLogin } from "../../services/auth.service";
+import {
+  apiRegister,
+  apiLogin,
+  apiVerifyOTP,
+} from "../../services/auth.service";
 
 export const register = (payload) => async (dispatch) => {
   try {
@@ -7,7 +11,6 @@ export const register = (payload) => async (dispatch) => {
     if (response?.data.err === 0) {
       dispatch({
         type: actionType.REGISTER_SUCCESS,
-        data: response.data.token,
       });
     } else {
       dispatch({
@@ -48,4 +51,20 @@ export const logout = (dispatch) => {
   dispatch({
     type: actionType.LOGOUT,
   });
+};
+
+export const verifyOTP = (payload) => async (dispatch) => {
+  try {
+    const response = await apiVerifyOTP(payload);
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionType.VERIFY_SUCCESS,
+        data: response.data.token,
+        msg: "",
+      });
+    } else {
+    }
+  } catch (error) {
+    return error;
+  }
 };

@@ -107,3 +107,28 @@ export const resetPost = (dispatch) => {
     type: actionType.RESET_POST,
   });
 };
+export const getOutStandingPosts = () => async (dispatch) => {
+  try {
+    const response = await apiGetPostsLimit({
+      limitPost: 5,
+      order: ["star", "DESC"],
+    });
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionType.GET_OUTSTANDING_POSTS,
+        outStandingPosts: response?.data?.response?.rows,
+      });
+    } else {
+      dispatch({
+        type: actionType.GET_OUTSTANDING_POSTS,
+        msg: response.data.msg,
+        outStandingPosts: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionType.GET_OUTSTANDING_POSTS,
+      outStandingPosts: null,
+    });
+  }
+};

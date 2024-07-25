@@ -5,14 +5,19 @@ import {
   BsBookmarkStarFill,
   BsChevronDown,
   BsCameraFill,
+  BsStopwatch,
+  BsHash,
+  BsDot,
+  BsTelephoneFill,
 } from "react-icons/bs";
-import { HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineLocationMarker, HiLocationMarker } from "react-icons/hi";
 import { TbReportMoney } from "react-icons/tb";
 import { RiCrop2Line, RiHeartFill, RiHeartLine } from "react-icons/ri";
 import { MdOutlineHouseSiding, MdOutlineLibraryBooks } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { ImPencil2, ImBin } from "react-icons/im";
 import { BiUserPin } from "react-icons/bi";
+import { SiZalo } from "react-icons/si";
 
 export default {
   AiOutlinePlusCircle,
@@ -36,4 +41,10 @@ export default {
   BsChevronDown,
   ImBin,
   BsCameraFill,
+  HiLocationMarker,
+  BsStopwatch,
+  BsHash,
+  BsDot,
+  BsTelephoneFill,
+  SiZalo,
 };

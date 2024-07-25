@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCreatePost, apiUpdatePost } from "../../services";
 import Swal from "sweetalert2";
-import { OverView, Address, Loading, Button } from "../../components";
+import { OverView, Address, Loading, Button, Map } from "../../components";
 import icons from "../../utils/icons";
 import { apiUploadImages } from "../../services";
 import { getCodesPriceV2, getCodesAreaV2 } from "../../utils/getCodes";
@@ -29,10 +29,7 @@ const CreatePost = ({ isEdit, setIsEdit }) => {
     };
     return payload;
   });
-  const { prices, areas, categories, provinces } = useSelector(
-    (state) => state.app
-  );
-
+  const { prices, areas, categories } = useSelector((state) => state.app);
   const [invalidFields, setInvalidFields] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [imagesPreview, setImagesPreview] = useState(() => {
@@ -200,7 +197,9 @@ const CreatePost = ({ isEdit, setIsEdit }) => {
             textColor="text-white"
           />
         </div>
-        <div className="w-1/3 flex-none">maps</div>
+        <div className="w-1/3 flex-none pt-12">
+          <Map address={payload?.address} />
+        </div>
       </div>
     </div>
   );

@@ -19,3 +19,6 @@ export { default as InputReadOnly } from "./InputReadOnly";
 export { default as InputFormV2 } from "./InputFormV2";
 export { default as Loading } from "./Loading";
 export { default as UpdatePost } from "./UpdatePost";
+export { default as SliderCustom } from "./SliderCustom";
+export { default as Map } from "./Map";
+export { default as BoxInfo } from "./BoxInfo";

@@ -5,6 +5,7 @@ import { InputForm, Button } from "../../components";
 import * as actions from "../../store/actions";
 import Swal from "sweetalert2";
 import validate from "../../utils/validateForm";
+import { apiSendOTP } from "../../services";
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,9 +44,22 @@ function Login() {
     setInvalidFields([]);
     let invalids = validate(finalPayload, setInvalidFields);
     if (invalids === 0) {
-      isRegister
-        ? dispatch(actions.register(payload))
-        : dispatch(actions.login(payload));
+      if (isRegister) {
+        dispatch(actions.register(payload));
+        if (!msg) {
+          apiSendOTP(payload);
+          navigate("/xac-thuc-sdt", {
+            state: { phoneNumber: payload?.phone },
+          });
+          Swal.fire({
+            title: "Bạn đã đăng ký thành công",
+            text: "Vui lòng cung cấp otp gửi qua sdt",
+            icon: "success",
+          });
+        }
+      } else {
+        dispatch(actions.login(payload));
+      }
     }
   };
 

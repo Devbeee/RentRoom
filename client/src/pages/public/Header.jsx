@@ -52,7 +52,6 @@ function Header() {
           )}
           {isLoggedIn && (
             <div className="flex items-center gap-3 relative">
-              <User />
               <Button
                 text="Quản lý tài khoản"
                 textColor="text-white"
@@ -72,6 +71,7 @@ function Header() {
               min-w-200 
               flex 
               flex-col 
+              z-10
               "
                 >
                   {menuManage.map((item) => (
@@ -103,6 +103,7 @@ function Header() {
             textColor="text-white"
             bgColor="bg-third"
             Icon={AiOutlinePlusCircle}
+            onClick={() => navigate("/he-thong/tao-moi-bai-dang")}
           />
         </div>
       </div>

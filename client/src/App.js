@@ -8,7 +8,8 @@ import {
   HomePage,
   DetailPost,
   SearchResult,
-  Contact
+  Contact,
+  OTPVerification
 } from "./pages/public";
 import { System, CreatePost, ManagePost, EditProfile } from "./pages/system";
 import * as actions from "./store/actions";
@@ -44,11 +45,13 @@ function App() {
           <Route path={path.NHA_CHO_THUE} element={<Rental />}></Route>
           <Route path={path.SEARCH} element={<SearchResult />}></Route>
           <Route path={path.CONTACT} element={<Contact />}></Route>
+          <Route path={path.VERIFY_OTP} element={<OTPVerification />}></Route>
+
           <Route
             path={path.DETAL_POST__TITLE__POSTID}
             element={<DetailPost />}
           ></Route>
-          <Route path={"chi-tiet/*"} element={<DetailPost />} />
+          {/* <Route path={path.DETAIL} element={<DetailPost />} /> */}
         </Route>
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />}></Route>

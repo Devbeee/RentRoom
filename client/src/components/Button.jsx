@@ -1,5 +1,14 @@
 import { memo } from "react";
-function Button({ text, textColor, bgColor, fullWidth, Icon, onClick }) {
+function Button({
+  text,
+  textColor,
+  bgColor,
+  fullWidth,
+  Icon,
+  onClick,
+  icBefore,
+  icAfter,
+}) {
   return (
     <button
       type="button"
@@ -18,8 +27,9 @@ function Button({ text, textColor, bgColor, fullWidth, Icon, onClick }) {
         `}
       onClick={onClick}
     >
+      {icBefore && <Icon />}
       {text}
-      {Icon && <Icon />}
+      {icAfter && <Icon />}
     </button>
   );
 }

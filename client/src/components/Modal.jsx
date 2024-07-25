@@ -86,28 +86,31 @@ const Modal = ({
       SetPercent2(convertTo100(arrMaxMin[1]));
     }
   };
+  const getRangeString = (percent1, percent2) => {
+    let min = percent1 <= percent2 ? percent1 : percent2;
+    let max = percent1 <= percent2 ? percent2 : percent1;
+
+    let minConverted = convert100toTarget(min);
+    let maxConverted = convert100toTarget(max);
+
+    if (minConverted === maxConverted) {
+      return `Từ ${maxConverted} ${name === "price" ? "triệu" : "m2"}`;
+    } else {
+      return `Từ ${minConverted} - ${maxConverted} ${
+        name === "price" ? "triệu" : "m2"
+      }`;
+    }
+  };
+
   const handleBeforeSubmit = (e) => {
     e.stopPropagation();
     let min = percent1 <= percent2 ? percent1 : percent2;
     let max = percent1 <= percent2 ? percent2 : percent1;
     let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
-    // const gaps =
-    //   name === "price"
-    //     ? getCodes(arrMinMax, content)
-    //     : name === "area"
-    //     ? getCodesArea(arrMinMax, content)
-    //     : [];
     handleSubmit(
       {
         [`${name}Number`]: arrMinMax,
-        [name]:
-          convert100toTarget(min) === convert100toTarget(max)
-            ? `Trên ${convert100toTarget(max)} ${
-                name === "price" ? "triệu" : "m2"
-              }`
-            : `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
-                name === "price" ? "triệu" : "m2"
-              }`,
+        [name]: getRangeString(percent1, percent2),
       },
       {
         [`${name}Arr`]: [min, max],
@@ -188,19 +191,7 @@ const Modal = ({
             <div className="p-12 py-20">
               <div className="flex flex-col items-center justify-center relative">
                 <div className="z-30 absolute top-[-48px] font-bold text-xl text-orange-600">
-                  {percent1 === 100 && percent2 === 100
-                    ? `Trên ${convert100toTarget(percent1)} ${
-                        name === "price" ? "triệu" : "m2"
-                      } +`
-                    : `Từ ${
-                        percent1 <= percent2
-                          ? convert100toTarget(percent1)
-                          : convert100toTarget(percent2)
-                      } - ${
-                        percent2 >= percent1
-                          ? convert100toTarget(percent2)
-                          : convert100toTarget(percent1)
-                      } ${name === "price" ? "triệu" : "m2"}`}
+                  {getRangeString(percent1, percent2)}
                 </div>
                 <div
                   id="track"

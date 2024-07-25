@@ -44,22 +44,23 @@ export const getPostsService = async () => {
 
 export const getPostsLimitService = async (
   page,
-  query,
+  { limitPost, order, ...query },
   { priceNumber, areaNumber }
 ) => {
   try {
     let offset = !page || +page <= 1 ? 0 : +page - 1;
     const queries = { ...query };
-    if (priceNumber) queries.priceNumber = { [Op.between]: priceNumber };
-    if (areaNumber) queries.areaNumber = { [Op.between]: areaNumber };
-
+    const limit = +limitPost || +process.env.LIMIT;
+    queries.limit = limit;
+    if (priceNumber) query.priceNumber = { [Op.between]: priceNumber };
+    if (areaNumber) query.areaNumber = { [Op.between]: areaNumber };
+    if (order) queries.order = [order];
     const response = await db.Post.findAndCountAll({
-      where: queries,
+      where: query,
       raw: true,
       nest: true,
-      offset: offset * +process.env.LIMIT,
-      limit: +process.env.LIMIT,
-      order: [["createdAt", "DESC"]],
+      offset: offset * limit,
+      ...queries,
       include: [
         { model: db.Image, as: "images", attributes: ["image"] },
         {
@@ -67,9 +68,22 @@ export const getPostsLimitService = async (
           as: "attributes",
           attributes: ["price", "acreage", "published", "hashtag"],
         },
+        {
+          model: db.Overview,
+          as: "overviews",
+        },
+        { model: db.Label, as: "labels" },
+
         { model: db.User, as: "user", attributes: ["name", "zalo", "phone"] },
       ],
-      attributes: ["id", "title", "star", "address", "description"],
+      attributes: [
+        "id",
+        "title",
+        "star",
+        "address",
+        "description",
+        "createdAt",
+      ],
     });
     return {
       err: response ? 0 : 1,
@@ -87,7 +101,7 @@ export const getNewPostsService = async () => {
       raw: true,
       nest: true,
       offset: 0,
-      order: ["createdAt", "DESC"],
+      order: [["createdAt", "DESC"]],
       limit: +process.env.LIMIT,
       include: [
         { model: db.Image, as: "images", attributes: ["image"] },

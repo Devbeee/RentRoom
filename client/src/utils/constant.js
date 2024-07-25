@@ -13,7 +13,8 @@ export const path = {
   MANAGE_POST: "quan-ly-bai-dang",
   EDIT_PROFILE: "sua-thong-tin-ca-nhan",
   CONTACT: "lien-he",
-
+  DETAIL: "chi-tiet/*",
+  VERIFY_OTP:"xac-thuc-sdt"
 };
 
 export const text = {
@@ -25,17 +26,20 @@ export const text = {
 export const location = [
   {
     id: "hcm",
+    code: "CHIH",
     name: "Phòng trọ Hồ Chí Minh",
     image: "https://phongtro123.com/images/location_hcm.jpg",
   },
   {
+    id: "hn",
+    code: "NHON",
     name: "Phòng trọ Hà Nội",
     image: "https://phongtro123.com/images/location_hn.jpg",
-    id: "hn",
   },
   {
+    id: "dn",
+    code: "NHAO",
     name: "Phòng trọ Đà nẵng",
     image: "https://phongtro123.com/images/location_dn.jpg",
-    id: "dn",
   },
 ];

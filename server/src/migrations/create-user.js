@@ -25,6 +25,10 @@ module.exports = {
       avatar: {
         type: Sequelize.TEXT("long"),
       },
+      isAuthencated: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { ItemSidebar, RelatedPost } from "../../components";
+import { ItemSidebar, Province, RelatedPost } from "../../components";
 import { List, Pagination } from "./index";
 const SearchResult = () => {
   const { prices, areas } = useSelector((state) => state.app);
   const location = useLocation();
   return (
     <div className="w-full flex flex-col gap-3">
+      <Province />
       <div>
         <h1 className="text-[28px] font-bold">
           {location.state?.titleSearch || "Kết quả tìm kiếm"}
